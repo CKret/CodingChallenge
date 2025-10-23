@@ -22,7 +22,7 @@ namespace OldPhonePad
         /// <summary>
         /// The options for decoding behavior.
         /// </summary>
-        public readonly OldPhoneOptions Options;
+        public OldPhoneOptions Options { get; init; }
 
         /// <summary>
         /// The digit-to-character mapping.

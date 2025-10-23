@@ -7,6 +7,6 @@ namespace OldPhonePad
     /// </summary>
     public sealed class OldPhoneOptions
     {
-        public bool IgnoreInvalidCharacters { get; set; } = false;
+        public bool IgnoreInvalidCharacters { get; init; } = false;
     }
 }

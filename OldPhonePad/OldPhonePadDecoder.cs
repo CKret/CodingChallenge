@@ -5,8 +5,18 @@ using System.Text;
 namespace OldPhonePad
 {
     /// <summary>
-    /// Logic for processing old phone keypad input.
+    /// Provides logic for decoding old-style multi-tap phone keypad input into text.
     /// </summary>
+    /// <remarks>
+    /// Supports the following keys:
+    /// <list type="bullet">
+    /// <item><description>Digits 2–9 map to letters (multi-tap)</description></item>
+    /// <item><description>0 inserts a space</description></item>
+    /// <item><description>* acts as backspace (removes the last committed character)</description></item>
+    /// <item><description># acts as send/commit (finalizes input and stops decoding)</description></item>
+    /// <item><description>Space commits the current key run (used to separate same digits)</description></item>
+    /// </list>
+    /// </remarks>
     public sealed class OldPhonePadDecoder
     {
         /// <summary>
@@ -29,9 +39,13 @@ namespace OldPhonePad
         }
 
         /// <summary>
-        /// Processes the input string simulating old phone keypad behavior.
-        /// Assumption is that '#' will always be at the end to indicate sending the message.
+        /// Decodes the specified input string using the classic phone keypad mapping.
         /// </summary>
+        /// <param name="input">A sequence of key presses (e.g. "4433555 555666#").</param>
+        /// <returns>The decoded message as a string. Returns an empty string if the input is null or empty.</returns>
+        /// <exception cref="ArgumentException">
+        /// Thrown if invalid characters are found and <see cref="OldPhoneOptions.IgnoreInvalidCharacters"/> is false.
+        /// </exception>
         public string Decode(string? input)
         {
             if (input is null) return string.Empty;

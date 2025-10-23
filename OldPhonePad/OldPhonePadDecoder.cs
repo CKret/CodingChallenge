@@ -115,7 +115,14 @@ namespace OldPhonePad
                 // For this implementation, we make it configurable since the specification is unclear how to handle them.
                 // E.g. "22-2#" would be invalid due to '-', but should the result be "C" (222) or "B" (22) or "BA" (22 2)?
                 if (!Options.IgnoreInvalidCharacters)
+                {
                     throw new ArgumentException($"Invalid character in input: {ch}");
+                }
+                else
+                {
+                    // Ignore invalid character.
+                    continue;
+                }
             }
 
             // Commit any remaining key even if input didn't end with #.
